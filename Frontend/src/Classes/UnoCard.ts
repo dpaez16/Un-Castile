@@ -40,11 +40,17 @@ class UnoCard {
     color: UnoCardColor;
     type: UnoCardType;
     value: any;
+    faceUp: boolean;
 
     constructor(cardColor: UnoCardColor, cardType: UnoCardType, cardValue: any) {
         this.color = cardColor;
         this.type = cardType;
         this.value = cardValue;
+        this.faceUp = false;
+    }
+
+    flipCard() {
+        this.faceUp = !this.faceUp;
     }
 
     equals(rhs: UnoCard) {
@@ -116,4 +122,4 @@ function createUnoDeck() {
     return deck;
 };
 
-export { UnoCard, createUnoDeck };
+export { UnoCardType, UnoCardColor, UnoCardNumber, UnoCardAction, UnoCard, createUnoDeck };

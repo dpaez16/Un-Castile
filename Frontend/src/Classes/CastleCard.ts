@@ -26,10 +26,16 @@ enum CastleCardValue {
 class CastleCard {
     suit: CastleCardSuit;
     value: CastleCardValue;
+    faceUp: boolean;
 
     constructor(cardSuit: CastleCardSuit, cardValue: CastleCardValue) {
         this.suit = cardSuit;
         this.value = cardValue;
+        this.faceUp = false;
+    }
+
+    flipCard() {
+        this.faceUp = !this.faceUp;
     }
 
     equals(rhs: CastleCard) {
@@ -52,14 +58,6 @@ class CastleCard {
     toString() {
         return `[${CastleCardValue[this.value]} - ${CastleCardSuit[this.suit]}]`
     }
-
-    isWildCard() {
-        if (this.value == CastleCardValue.Two) return true;
-        if (this.value == CastleCardValue.Seven) return true;
-        if (this.value == CastleCardValue.Ten) return true;
-
-        return false;
-    }
 };
 
 function createCastleDeck() {
@@ -75,4 +73,4 @@ function createCastleDeck() {
     return deck;
 };
 
-export { CastleCard, createCastleDeck };
+export { CastleCardSuit, CastleCardValue, CastleCard, createCastleDeck };
