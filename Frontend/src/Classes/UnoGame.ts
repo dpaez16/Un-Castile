@@ -15,6 +15,7 @@ class UnoGame {
         this.playedCards = createUnoDeck();
         shuffleArray(this.playedCards, this.rng);
 
+        // Finds a number card for start of game
         const end = this.playedCards.length - 1;
         for (let i = 0; i < this.playedCards.length; i++) {
             const unoCard = this.playedCards[i];
@@ -50,6 +51,8 @@ class UnoGame {
     }
 
     placeCard(playerNum: number, cardIdx: number) {
+        // assuming play is legal here
+
         const card = this.playerHands[playerNum].splice(cardIdx, 1)[0];
         this.playedCards.push(card);
     }
@@ -72,6 +75,18 @@ class UnoGame {
 
     hasCards(playerNum: number) {
         return this.playerHands[playerNum].length > 0;
+    }
+
+    getDeck() {
+        return this.deck;
+    }
+
+    getPlayedCards() {
+        return this.playedCards;
+    }
+
+    getPlayerHand(playerNum: i) {
+        return this.playerHands[i];
     }
 };
 
