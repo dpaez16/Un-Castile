@@ -85,8 +85,8 @@ class UnoGame {
         return this.playedCards;
     }
 
-    getPlayerHand(playerNum: i) {
-        return this.playerHands[i];
+    getPlayerHand(playerNum: number) {
+        return this.playerHands[playerNum];
     }
 };
 
