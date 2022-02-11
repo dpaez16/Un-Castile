@@ -46,7 +46,7 @@ class UnoCard {
         this.color = cardColor;
         this.type = cardType;
         this.value = cardValue;
-        this.faceUp = false;
+        this.faceUp = true;
     }
 
     flipCard() {

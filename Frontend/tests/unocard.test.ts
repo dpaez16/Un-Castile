@@ -6,7 +6,7 @@ test('Deck creation works', () => {
 
     for (let card of deck) {
         expect(card.isProper()).toEqual(true);
-        expect(card.faceUp).toEqual(false);
+        expect(card.faceUp).toEqual(true);
     }
 
     const blackCards = deck.filter((card) => card.color == UnoCardColor.Black && card.type == UnoCardType.Action);

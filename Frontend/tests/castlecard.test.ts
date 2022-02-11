@@ -21,4 +21,6 @@ test('Deck creation works', () => {
     for (let card of deck) {
         expect(card.faceUp).toEqual(false);
     }
+
+    expect(deck.sort((a, b) => a.comp(b)).length).toEqual(deck.length);
 });

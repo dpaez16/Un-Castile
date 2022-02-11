@@ -25,20 +25,30 @@ class UnoGame {
             }
         }
 
+        this.playedCards[end].flipCard();
         this.resetPlayedCards();
 
         this.playerHands = [];
         for (let i = 0; i < numPlayers; i++) {
-            const hand = this.deck.splice(this.deck.length - UnoGame.HAND_SIZE);
+            const hand = this.deck.splice(this.deck.length - UnoGame.HAND_SIZE)
+                .map((card) => {
+                    card.flipCard(); 
+                    return card;
+                });
             this.playerHands.push(hand);
         }
     }
 
     resetPlayedCards() {
+        // assumes all cards in playedCards is face up
         const topCard = this.playedCards[this.playedCards.length - 1];
         this.playedCards.pop();
 
-        this.deck = this.playedCards.splice(0);
+        this.deck = this.playedCards.splice(0)
+            .map((card) => {
+                card.flipCard();
+                return card;
+            });
         shuffleArray(this.deck, this.rng);
         this.playedCards = [topCard];
     }
@@ -58,12 +68,14 @@ class UnoGame {
     }
 
     drawCard(playerNum: number) {
+        // assumes all cards in deck is face down
         if (this.deck.length === 0) {
             this.resetPlayedCards();
         }
 
         const card = this.deck[this.deck.length - 1];
         this.deck.pop();
+        card.flipCard();
         this.playerHands[playerNum].push(card);
     }
 
