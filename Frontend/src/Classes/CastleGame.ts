@@ -177,6 +177,10 @@ class CastleGame {
     swapCards(playerNum: number, i: number, j: number) {
         this.players[playerNum].swapCards(i, j);
     }
+
+    getPlayer(playerNum: number) {
+        return this.players[playerNum];
+    }
 };
 
 export { CastleGame };
