@@ -9,6 +9,7 @@ test('Uno game deck creation', () => {
     
     expect(deck.length).toEqual(108 - UnoGame.HAND_SIZE * numPlayers - 1);
     
+    // all cards in deck are always face down
     const filteredDeck = deck.filter((card) => !card.faceUp);
     expect(filteredDeck.length).toEqual(deck.length);
 });
