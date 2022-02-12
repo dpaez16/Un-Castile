@@ -79,6 +79,12 @@ class UnoGame {
         this.playerHands[playerNum].push(card);
     }
 
+    drawCards(playerNum: number, n: number) {
+        for (let i = 0; i < n; i++) {
+            this.drawCard(playerNum);
+        }
+    }
+
     isLegalMove(playerNum: number, cardIdx: number) {
         const chosenCard = this.playerHands[playerNum][cardIdx];
         const topCard = this.playedCards[0];
