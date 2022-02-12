@@ -124,15 +124,23 @@ class CastleGame {
         return this.deck.pop()
     }
 
+    getPlayedCards() {
+        return this.playedCards;
+    }
+
     drawExtraCards(playerNum: number) {
         // if player emptied their hand before, no need to draw extra cards
         const player = this.players[playerNum];
-        if (player.emptiedHandBefore()) return;
+        if (player.emptiedHandBefore()) return 0;
 
+        var n = 0;
         while (this.deckSize() > 0 && player.castleHandSize() < CastleGame.CASTLE_HAND_SIZE) {
             const card = this.drawCard();
             player.addCard(card);
+            n += 1;
         }
+
+        return n;
     }
 
     isLegalMoveHelper(chosenCard: CastleCard) {
