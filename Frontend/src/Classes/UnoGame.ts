@@ -7,6 +7,7 @@ class UnoGame {
     private deck: Array<UnoCard>;
     private playedCards: Array<UnoCard>;
     private playerHands: Array<Array<UnoCard>>;
+    private color: UnoCardColor;
     private rng: RNG;
 
     constructor(numPlayers: number, seed: string) {
@@ -27,6 +28,7 @@ class UnoGame {
 
         this.playedCards[end].flipCard();
         this.resetPlayedCards();
+        this.color = this.playedCards[0].color;
 
         this.playerHands = [];
         for (let i = 0; i < numPlayers; i++) {
@@ -58,6 +60,14 @@ class UnoGame {
         for (let card of cards) {
             this.playedCards.unshift(card);
         }
+    }
+
+    getColor() {
+        return this.color;
+    }
+
+    setColor(newColor: UnoCardColor) {
+        this.color = newColor;
     }
 
     placeCard(playerNum: number, cardIdx: number) {
