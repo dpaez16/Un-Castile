@@ -1,4 +1,4 @@
-import { UnoGame } from "./UnoGame";
+import { UnoCardColor, UnoGame } from "./UnoGame";
 import { CastleGame } from './CastleGame';
 
 class UnCastileGame {
@@ -6,12 +6,20 @@ class UnCastileGame {
     private castleGame: CastleGame;
     private seed: string;
     private playerNum: number;
+    private players: [UnCastilePlayer];
+    private playerDirection: number; // 1 or -1
 
-    constructor(numPlayers: number, seed: string) {
+    constructor(numPlayers: number, playerMetadata: [any], seed: string) {
         this.seed = seed;
         this.unoGame = new UnoGame(numPlayers, seed);
         this.castleGame = new CastleGame(numPlayers, seed);
         this.playerNum = 0;
+        this.players = [];
+        this.playerDirection = 1;
+
+        for (let i = 0; i < numPlayers; i++) {
+            this.players[i] = new UnCastilePlayer(i, playerMetadata[i]);
+        }
     }
 
     getPlayerCards(playerNum: number) {
@@ -24,6 +32,44 @@ class UnCastileGame {
                 hand: castlePlayer.getCastleHandCards()
             }
         };
+    }
+
+    isWinner(playerNumber: number) {
+        return !this.unoGame.hasCards(playerNumber) && !this.castleGame.hasCards(playerNumber);
+    }
+
+    deletePlayer(playerNum: number) {
+        this.unoGame.removePlayer(playerNum);
+        this.castleGame.removePlayer(playerNum);
+        this.players.splice(playerNum, 1);
+
+        for (let idx = playerNum; idx < this.players.length; idx++) {
+            const newPlayerNum = this.players[idx].getPlayerNum() - 1;
+            this.players[idx].setPlayerNum(newPlayerNum);
+        }
+
+        this.playerNum %= this.players.length;
+    }
+
+    goToNextPlayer(skipNextPlayer: boolean = false) {
+        this.playerNum = (this.playerNum + this.playerDirection) % this.players.length;
+        if skipNextPlayer {
+            this.playerNum = (this.playerNum + this.playerDirection) % this.players.length;
+        }
+
+        return this.playerNum;
+    }
+
+    flipDirection() {
+        this.playerDirection *= -1;
+    }
+
+    getColor() {
+        return this.unoGame.getColor();
+    }
+
+    setColor(newColor: UnoCardColor) {
+        this.unoGame.setColor(newColor);
     }
 
     isLegalUnoMove(playerNum: number, cardIdx: number) {
