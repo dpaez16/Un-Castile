@@ -198,7 +198,7 @@ class UnoGame {
     }
 
     /**
-     * Clears off draw event from player.
+     * Clears off the draw event from a player.
      * @param {number} playerNum - Player index in game
      */
     clearDrawEvent(playerNum) {
