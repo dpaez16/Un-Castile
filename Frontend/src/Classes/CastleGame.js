@@ -198,7 +198,7 @@ class CastleGame {
      * If the player has already properly emptied their hand, then they
      * do not pick up any cards.
      * @param {number} playerNum - Index of player
-     * @returns {number} Number of cards that the player drew.
+     * @returns {number} Number of cards that the player drew
      */
     drawExtraCards(playerNum) {
         // if player emptied their hand before, no need to draw extra cards
@@ -242,7 +242,7 @@ class CastleGame {
     }
 
     /**
-     * Checks to see if a player's "castle up" card can be played
+     * Checks to see if a player's "castle up" card can be played.
      * @param {number} playerNum - Index of player
      * @param {number} cardIdx - Index of player's "castle up"
      * @returns {boolean} True if the selected "castle up" card can be played
