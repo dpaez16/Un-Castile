@@ -1,17 +1,12 @@
 class UnCastilePlayer {
-    constructor(playerNum, metadata) {
-        this.playerNum = playerNum;
+    constructor(metadata) {
         this.metadata = metadata;
     }
 
-    getPlayerNum() {
-        return this.playerNum;
-    }
-
-    setPlayerNum(newPlayerNum) {
-        this.playerNum = newPlayerNum;
-    }
-
+    /**
+     * Gets the player's metadata (as a JS object).
+     * @returns {Object} The player's metadata
+     */
     getMetadata() {
         return this.metadata;
     }
