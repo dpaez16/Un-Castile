@@ -75,7 +75,7 @@ test("Uno draw events test", () => {
     expect(unoGame.players[0].hasDrawEvent()).toEqual(false);
     expect(unoGame.players[0].getDrawEvent()).toEqual(0);
 
-    unoGame.players[0].setDrawEvent(UnoCardAction.DrawFour);
+    unoGame.players[0].setDrawEvent(4);
     expect(unoGame.players[0].hasDrawEvent()).toEqual(true);
     expect(unoGame.players[0].getDrawEvent()).toEqual(4);
 
