@@ -198,66 +198,148 @@ class UnCastileGame {
 
     // Castle API
 
+    /**
+     * Checks to see if a player's "castle down" card can be played.
+     * @param {number} playerNum - Index of player
+     * @param {number} cardIdx - Index of player's "castle down"
+     * @returns {boolean} True if the player's selected "castle down" can be legally played
+     */
     isLegalCastleDownMove(playerNum, cardIdx) {
         return this.castleGame.isLegalCastleDownMove(playerNum, cardIdx);
     }
 
+    /**
+     * Checks to see if a player's "castle up" card can be played.
+     * @param {number} playerNum - Index of player
+     * @param {number} cardIdx - Index of player's "castle up"
+     * @returns {boolean} True if the selected "castle up" card can be played
+     */
     isLegalCastleUpMove(playerNum, cardIdx) {
         return this.castleGame.isLegalCastleUpMove(playerNum, cardIdx);
     }
 
+    /**
+     * Checks to see if a player's card from their hand can be played.
+     * @param {number} playerNum - Index of player
+     * @param {number} cardIdx - Index of player's hand
+     * @returns {boolean} True if the selected card can be played
+     */
     isLegalCastleHandMove(playerNum, cardIdx) {
         return this.castleGame.isLegalCastleHandMove(playerNum, cardIdx);
     }
 
+    /**
+     * Tries to play a player's "castle down" card.
+     * 
+     * If successful, the card gets played.
+     * 
+     * Otherwise, the player picks up the pile and the "castle down" card.
+     * @param {number} playerNum - Index of player
+     * @param {number} cardIdx - Index of player's "castle down"
+     * @returns {boolean} True if the selected "castle down" card is played successfully.
+     */
     placeCastleDownCard(playerNum, cardIdx) {
         return this.castleGame.placeCardCastleDown(playerNum, cardIdx);
     }
 
+    /**
+     * Places a player's "castle up" card.
+     * @param {number} playerNum - Index of player
+     * @param {number} cardIdx - Index of player's "castle up"
+     */
     placeCastleUpCard(playerNum, cardIdx) {
         this.castleGame.placeCardCastleUp(playerNum, cardIdx);
     }
 
+    /**
+     * Places a card from a player's hand.
+     * @param {number} playerNum - Index of player
+     * @param {number} cardIdx - Index of player's hand
+     */
     placeCastleHandCard(playerNum, cardIdx) {
         this.castleGame.placeCardCastleHand(playerNum, cardIdx);
     }
 
+    /**
+     * A player draws cards from the pile until they have the maximum amount of castle cards allowed.
+     * 
+     * If the player has already properly emptied their hand, then they do not pick up any cards
+     * @param {number} playerNum - Index of player
+     * @returns {number} Number of cards that the player drew
+     */
     drawCastleCards(playerNum) {
         return this.castleGame.drawExtraCards(playerNum);
     }
 
+    /**
+     * Assigns a player's selected cards to be their "castle up".
+     * @param {number} playerNum - Index of player
+     * @param {number} cardIdxs - Indexes of player's "castle up"
+     */
     assignCastleUpCards(playerNum, cardIdxs) {
         this.castleGame.assignCastleUpCards(playerNum, cardIdxs);
     }
 
+    /**
+     * Makes a player pick up the played cards pile.
+     * @param {number} playerNum - Index of player
+     */
     pickUpCastlePile(playerNum) {
         this.castleGame.pickUpPile(playerNum);
     }
 
+    /**
+     * Gets the Castle discard pile.
+     * @returns {Array<CastleCard>} The Castle discard pile
+     */
     getCastleDiscardPile() {
         return this.castleGame.getDiscardPile();
     }
 
+    /**
+     * Discards all cards in the played cards pile into the discard pile.
+     */
     blowUpCastlePile() {
         this.castleGame.blowUpPile();
     }
 
+    /**
+     * Checks to see if a player has Castle cards.
+     * @param {number} playerNum - Index of player
+     * @returns {boolean} True if the player has Castle cards
+     */
     hasCastleCards(playerNum) {
         return this.castleGame.hasCards(playerNum);
     }
 
+    /**
+     * Ends the phase of players selecting their "castle up" cards.
+     */
     closeCastlePrepPhase() {
         this.castleGame.closeCastlePrepPhase();
     }
 
+    /**
+     * Checks to see if the phase of players selecting their "castle up" cards is still ongoing.
+     * @returns {boolean} True if the phase is still ongoing
+     */
     isCastlePrepPhaseOpen() {
         return this.castleGame.isCastlePrepPhaseOpen();
     }
 
+    /**
+     * Set the Castle value direction to a new value direction. 
+     * Castle Value direction shold be -1 or 1.
+     * @param {number} newValueDirection - The new Castle value direction
+     */
     setCastleValueDirection(newValueDirection) {
         this.castleGame.setValueDirection(newValueDirection);
     }
 
+    /**
+     * Gets the Castle played cards pile.
+     * @returns {Array<CastleCard>} The Castle played cards pile
+     */
     getPlayedCastleCards() {
         return this.castleGame.getPlayedCards();
     }
