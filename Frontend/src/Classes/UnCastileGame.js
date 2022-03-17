@@ -1,28 +1,21 @@
-import { UnoCardColor, UnoGame } from "./UnoGame";
-import { CastleGame } from './CastleGame';
+const { UnoCardColor, UnoGame } = require('./UnoGame');
+const { CastleGame } = require('./CastleGame');
 
 class UnCastileGame {
-    private unoGame: UnoGame;
-    private castleGame: CastleGame;
-    private seed: string;
-    private playerNum: number;
-    private players: [UnCastilePlayer];
-    private playerDirection: number; // 1 or -1
-
-    constructor(numPlayers: number, playerMetadata: [any], seed: string) {
+    constructor(numPlayers, playerMetadata, seed) {
         this.seed = seed;
         this.unoGame = new UnoGame(numPlayers, seed);
         this.castleGame = new CastleGame(numPlayers, seed);
-        this.playerNum = 0;
+        this.playerNum = 0; // who's turn is it
         this.players = [];
-        this.playerDirection = 1;
+        this.playerDirection = 1; // 1 or -1
 
         for (let i = 0; i < numPlayers; i++) {
-            this.players[i] = new UnCastilePlayer(i, playerMetadata[i]);
+            this.players.push(new UnCastilePlayer(i, playerMetadata[i]));
         }
     }
 
-    getPlayerCards(playerNum: number) {
+    getPlayerCards(playerNum) {
         const castlePlayer = this.castleGame.getPlayer(playerNum);
         return {
             unoCards: this.unoGame.getPlayerHand(playerNum),
@@ -34,11 +27,11 @@ class UnCastileGame {
         };
     }
 
-    isWinner(playerNumber: number) {
+    isWinner(playerNumber) {
         return !this.unoGame.hasCards(playerNumber) && !this.castleGame.hasCards(playerNumber);
     }
 
-    deletePlayer(playerNum: number) {
+    deletePlayer(playerNum) {
         this.unoGame.removePlayer(playerNum);
         this.castleGame.removePlayer(playerNum);
         this.players.splice(playerNum, 1);
@@ -51,9 +44,9 @@ class UnCastileGame {
         this.playerNum %= this.players.length;
     }
 
-    goToNextPlayer(skipNextPlayer: boolean = false) {
+    goToNextPlayer(skipNextPlayer = false) {
         this.playerNum = (this.playerNum + this.playerDirection) % this.players.length;
-        if skipNextPlayer {
+        if (skipNextPlayer) {
             this.playerNum = (this.playerNum + this.playerDirection) % this.players.length;
         }
 
@@ -63,24 +56,30 @@ class UnCastileGame {
     flipDirection() {
         this.playerDirection *= -1;
     }
+    
+    // Uno API
 
     getColor() {
         return this.unoGame.getColor();
     }
 
-    setColor(newColor: UnoCardColor) {
+    setColor(newColor) {
         this.unoGame.setColor(newColor);
     }
 
-    isLegalUnoMove(playerNum: number, cardIdx: number) {
+    isLegalUnoMove(playerNum, cardIdx) {
         return this.unoGame.isLegalMove(number, idx);
     }
 
-    placeUnoCard(playerNum: number, cardIdx: number) {
+    placeUnoCard(playerNum, cardIdx) {
         this.unoGame.placeCard(playerNum, cardIdx);
     }
 
-    drawUnoCards(playerNum: number, n: number) {
+    drawUnoCard(playerNum) {
+        this.unoGame.drawCard(playerNum);
+    }
+
+    drawUnoCards(playerNum, n) {
         this.unoGame.drawCards(playerNum, n);
     }
 
@@ -88,47 +87,73 @@ class UnCastileGame {
         return this.unoGame.getPlayedCards();
     }
 
-    hasUnoCards(playerNum: number) {
+    hasUnoCards(playerNum) {
         return this.unoGame.hasCards(playerNum);
     }
 
-    isLegalCastleDownMove(playerNum: number, cardIdx: number) {
+    hasUnoDrawEvent(playerNum) {
+        return this.unoGame.hasDrawEvent(playerNum);
+    }
+
+    getUnoDrawEvent(playerNum) {
+        return this.unoGame.getDrawEvent(playerNum);
+    }
+
+    setUnoDrawEvent(playerNum, drawEvent) {
+        this.unoGame.setDrawEvent(playerNum, drawEvent);
+    }
+
+    clearUnoDrawEvent(playerNum) {
+        this.unoGame.clearDrawEvent(playerNum);
+    }
+
+    // Castle API
+
+    isLegalCastleDownMove(playerNum, cardIdx) {
         return this.castleGame.isLegalCastleDownMove(playerNum, cardIdx);
     }
 
-    isLegalCastleUpMove(playerNum: number, cardIdx: number) {
+    isLegalCastleUpMove(playerNum, cardIdx) {
         return this.castleGame.isLegalCastleUpMove(playerNum, cardIdx);
     }
 
-    isLegalCastleHandMove(playerNum: number, cardIdx: number) {
+    isLegalCastleHandMove(playerNum, cardIdx) {
         return this.castleGame.isLegalCastleHandMove(playerNum, cardIdx);
     }
 
-    placeCastleDownCard(playerNum: number, cardIdx: number) {
-        return this.castleGame.placeCardCastleDown(this.playerNum, cardIdx);
+    placeCastleDownCard(playerNum, cardIdx) {
+        return this.castleGame.placeCardCastleDown(playerNum, cardIdx);
     }
 
-    placeCastleUpCard(playerNum: number, cardIdx: number) {
-        this.castleGame.placeCardCastleUp(this.playerNum, cardIdx);
+    placeCastleUpCard(playerNum, cardIdx) {
+        this.castleGame.placeCardCastleUp(playerNum, cardIdx);
     }
 
-    placeCastleHandCard(playerNum: number, cardIdx: number) {
-        this.castleGame.placeCardCastleHand(this.playerNum, cardIdx);
+    placeCastleHandCard(playerNum, cardIdx) {
+        this.castleGame.placeCardCastleHand(playerNum, cardIdx);
     }
 
-    drawCastleCards(playerNum: number) {
+    drawCastleCards(playerNum) {
         return this.castleGame.drawExtraCards(playerNum);
     }
 
-    swapCastleCards(playerNum: number, i: number, j: number) {
-        this.castleGame.swapCards(playerNum, i, j);
+    assignCastleUpCards(playerNum, cardIdxs) {
+        this.castleGame.assignCastleUpCards(playerNum, cardIdxs);
     }
 
-    pickUpCastlePile(playerNum: number) {
+    pickUpCastlePile(playerNum) {
         this.castleGame.pickUpPile(playerNum);
     }
 
-    hasCastleCards(playerNum: number) {
+    getCastleDiscardPile() {
+        return this.castleGame.getDiscardPile();
+    }
+
+    blowUpCastlePile() {
+        this.castleGame.blowUpPile();
+    }
+
+    hasCastleCards(playerNum) {
         return this.castleGame.hasCards(playerNum);
     }
 
@@ -140,12 +165,7 @@ class UnCastileGame {
         return this.castleGame.isCastlePrepPhaseOpen();
     }
 
-    removePlayer(playerNum: number) {
-        this.castleGame.removePlayer(playerNum);
-        this.unoGame.removePlayer(playerNum);
-    }
-
-    setCastleValueDirection(newValueDirection: number) {
+    setCastleValueDirection(newValueDirection) {
         this.castleGame.setValueDirection(newValueDirection);
     }
 
@@ -154,4 +174,4 @@ class UnCastileGame {
     }
 };
 
-export { UnCastileGame };
+module.exports = { UnCastileGame };

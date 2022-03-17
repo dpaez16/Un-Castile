@@ -1,8 +1,5 @@
 class UnCastilePlayer {
-    private playerNum: number;
-    private metadata: any;
-
-    constructor(playerNum: number, metadata: any) {
+    constructor(playerNum, metadata) {
         this.playerNum = playerNum;
         this.metadata = metadata;
     }
@@ -20,4 +17,4 @@ class UnCastilePlayer {
     }
 };
 
-export { UnCastilePlayer };
+module.exports = { UnCastilePlayer };

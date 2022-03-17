@@ -1,10 +1,7 @@
-import seedrandom from 'seedrandom';
+const seedrandom = require('seedrandom');
 
 class RNG {
-    generator: any;
-    seed: string;
-
-    constructor(seed: string) {
+    constructor(seed) {
         this.seed = seed;
         this.generator = seedrandom(seed);
     }
@@ -14,11 +11,11 @@ class RNG {
     }
 };
 
-function shuffleArray(array: Array<any>, rng: RNG): void {
+function shuffleArray(array, rng) {
     for (let i = array.length - 1; i > 0; i--) {
         const j = Math.floor(rng.random() * (i + 1));
         [array[i], array[j]] = [array[j], array[i]];
     }
 };
 
-export { RNG, shuffleArray };
+module.exports = { RNG, shuffleArray };
