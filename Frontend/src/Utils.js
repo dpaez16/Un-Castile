@@ -3,7 +3,7 @@ const seedrandom = require('seedrandom');
 class RNG {
     constructor(seed) {
         this.seed = seed;
-        this.generator = seedrandom(seed);
+        this.generator = seed !== undefined ? seedrandom(seed) : Math.random;
     }
 
     random() {
