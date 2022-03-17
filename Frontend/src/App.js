@@ -1,14 +1,17 @@
 import logo from './logo.svg';
 import './App.css';
 import { CastleCardSuit, CastleCardValue } from './Classes/CastleCard';
+import { UnoCardColor, UnoCardType, UnoCardNumber, UnoCardAction } from './Classes/UnoCard';
 import { CastleCardComponent } from './Components/CastleCard/CastleCardComponent';
+import { UnoCardComponent } from './Components/UnoCard/UnoCardComponent';
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <CastleCardComponent suit={CastleCardSuit.Hearts} value={CastleCardValue.King} height="100px" front={true} />
+        <CastleCardComponent suit={CastleCardSuit.Hearts} value={CastleCardValue.King} height="200px" front={true} />
+        <UnoCardComponent color={UnoCardColor.Black} cardType={UnoCardType.Action} cardValue={UnoCardAction.DrawFour} front={true} height="210px" />
         <p>
           Edit <code>src/App.js</code> and save to reload.
         </p>
