@@ -76,7 +76,7 @@ class CastlePlayer {
 
     /**
      * Returns the player's hand.
-     * @returns {Array<CastleCard>}
+     * @returns {Array<CastleCard>} The player's hand
      */
     getCastleHandCards() {
         return this.castleHand;
