@@ -6,7 +6,7 @@ export class UnoCardComponent extends Component {
         if (!front) {
             return `${process.env.PUBLIC_URL}/assets/images/UnoCard/Back.svg`;
         } else {
-            const cardValueStr = cardType.numVal === UnoCardType.Number ? cardValue.numVal : cardValue.toString();
+            const cardValueStr = cardType.numVal === UnoCardType.Number.numVal ? cardValue.numVal : cardValue.toString();
             return `${process.env.PUBLIC_URL}/assets/images/UnoCard/${color.toString()}/${cardType.toString()}/${cardValueStr}.svg`;
         }
     }

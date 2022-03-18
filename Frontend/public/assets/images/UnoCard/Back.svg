@@ -4,7 +4,7 @@
 <defs>
 </defs>
 <g transform="matrix(1 0 0 1 323 223)">
-<rect style="stroke: rgb(0,0,0); stroke-width: 2; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill: rgb(255,255,255); fill-rule: evenodd; opacity: 1;" x="-120" y="-180" rx="40" ry="40" width="240" height="360"/>
+<rect style="stroke: rgb(0,0,0); stroke-width: 2; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill: rgb(65,105,225); fill-rule: evenodd; opacity: 1;" x="-120" y="-180" rx="40" ry="40" width="240" height="360"/>
 </g>
 <g transform="matrix(1 0 0 1 325.5 221.67)">
 <path style="stroke: rgb(0,0,0); stroke-width: 2; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" transform=" translate(-324.17, -221)" d="M 228.33333333333331 63 L 300.37421678772256 63 Q 407.6666666666667 85.33333333333331 421 166.66666666666666 L 421 379 L 340 378.3333333333333 Q 254.33333333333331 363.66666666666663 227.33333333333331 291.66666666666663 L 228.33333333333331 62" stroke-linecap="round"/>
