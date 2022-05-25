@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import { CastleCardValue } from '../../Classes/CastleCard';
+import { Card }  from '../Card/Card';
+import { motion } from 'framer-motion';
 
 export class CastleCardComponent extends Component {
     static SUITS = "HDCS";
@@ -21,20 +23,18 @@ export class CastleCardComponent extends Component {
     }
 
     render() {
-        const {suit, value, front, height, style = {}, className = ""} = this.props;
+        const {suit, value, height, style = {}, flipped=false} = this.props;
         style.height = height;
 
-        const cardPath = this.getCardPath(suit, value, front);
         const cardStr = `${suit.toString()} - ${value.toString()}`;
+        const cardPath = this.getCardPath(suit, value, false);
+        const backCardPath = this.getCardPath(suit, value, true);
 
-        if (!front) {
-            return (
-                <img src={cardPath} className={`castle-card__back ${className}`} alt="card-back" style={style} />
-            );
-        } else {
-            return (
-                <img src={cardPath} className={`castle-card ${className}`} alt={cardStr} style={style} />
-            );
-        }
+        const frontElement = (<img src={cardPath} alt={cardStr} style={style} />);
+        const backElement = (<img src={backCardPath} alt={cardStr} style={style} />);
+
+        return (
+            <Card height="200px" style={style} front={frontElement} back={backElement} />
+        );
     };
 };

@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import { UnoCardType } from '../../Classes/UnoCard';
+import { Card } from '../Card/Card';
 
 export class UnoCardComponent extends Component {
     getCardPath(color, cardType, cardValue, front) {
@@ -17,9 +18,13 @@ export class UnoCardComponent extends Component {
 
         const cardStr = `${color.toString()} - ${cardValue.toString()}`;
         const cardPath = this.getCardPath(color, cardType, cardValue, front);
+        const backCardPath = this.getCardPath(color, cardType, cardValue, true);
+
+        const frontElement = (<img src={cardPath} alt={cardStr} style={style} />);
+        const backElement = (<img src={backCardPath} alt={cardStr} style={style} />);
 
         return (
-            <img src={cardPath} className={"uno-card"} alt={cardStr} style={style} />
+            <Card height="200px" style={style} front={frontElement} back={backElement} />
         );
     };
 };
