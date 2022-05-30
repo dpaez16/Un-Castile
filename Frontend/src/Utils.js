@@ -18,9 +18,11 @@ function shuffleArray(array, rng) {
     }
 };
 
-function getStyleDict(style, filePath) {
+function getStyleDict(style, height, width, filePath) {
     let backgroundImageStyle = {
-        "backgroundImage": `url(${filePath})`
+        "backgroundImage": `url(${filePath})`,
+        "height": `${height}px`,
+        "width": `${width}px`
     };
 
     return {...style, ...backgroundImageStyle};

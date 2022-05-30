@@ -3,16 +3,18 @@ import "./Card.css";
 
 export class Card extends Component {
     render() {
-        const {style = {}, front, back, cardID} = this.props;
+        const {style = {}, front, back, cardID, height, width} = this.props;
         const divID = `card-container-${cardID}`;
+        style.height = `${height}px`;
+        style.width = `${width}px`;
 
         return (
-            <div className="card" id={divID}>
-                <div className="card-inner">
-                    <div className="card-front">
+            <div className="card" id={divID} style={style}>
+                <div className="card-inner" style={style}>
+                    <div className="card-front" style={style}>
                         {front}
                     </div>
-                    <div className="card-back">
+                    <div className="card-back" style={style}>
                         {back}
                     </div>
                 </div>

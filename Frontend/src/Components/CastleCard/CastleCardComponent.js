@@ -25,21 +25,25 @@ export class CastleCardComponent extends Component {
 
     render() {
         const {suit, value, height, style = {}, flipped=false} = this.props;
-        style.height = height;
 
         const cardStr = `${suit.toString()} - ${value.toString()}`;
         const cardPath = this.getCardPath(suit, value, false);
         const backCardPath = this.getCardPath(suit, value, true);
 
-        //const frontElement = (<img src={cardPath} alt={cardStr} style={style} />);
-        //const backElement = (<img src={backCardPath} alt={cardStr} style={style} />);
+        const ratio = 225 / 315; // imageWidth / imageHeight
+        const width = Math.round(ratio * height);
 
-        //<div class="svg-img" style="background-image: url('DrawFour.svg');"></div>
-        const frontElement = (<div className="svg-img" style={getStyleDict(style, cardPath)}></div>);
-        const backElement = (<div className="svg-img" style={getStyleDict(style, backCardPath)}></div>);
+        const frontElement = (<div className="svg-img" style={getStyleDict(style, height, width, cardPath)}></div>);
+        const backElement = (<div className="svg-img" style={getStyleDict(style, height, width, backCardPath)}></div>);
 
         return (
-            <Card height="200px" style={style} front={frontElement} back={backElement} cardID={cardStr}/>
+            <Card   style={style} 
+                    front={frontElement} 
+                    back={backElement} 
+                    cardID={cardStr}
+                    height={height}
+                    width={width}
+            />
         );
     };
 };

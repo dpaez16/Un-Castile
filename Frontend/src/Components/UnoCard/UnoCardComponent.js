@@ -15,21 +15,25 @@ export class UnoCardComponent extends Component {
 
     render() {
         const {color, cardType, cardValue, front, style = {}, height} = this.props;
-        style.height = height;
         
         const cardStr = `${color.toString()} - ${cardValue.toString()}`;
         const cardPath = this.getCardPath(color, cardType, cardValue, front);
         const backCardPath = this.getCardPath(color, cardType, cardValue, true);
 
-        //const frontElement = (<img src={cardPath} alt={cardStr} style={style} />);
-        //const backElement = (<img src={backCardPath} alt={cardStr} style={style} />);
-        
-        //<div class="svg-img" style="background-image: url('DrawFour.svg');"></div>
-        const frontElement = (<div className="svg-img" style={getStyleDict(style, cardPath)}></div>);
-        const backElement = (<div className="svg-img" style={getStyleDict(style, backCardPath)}></div>);
+        const ratio = 242 / 362; // imageWidth / imageHeight
+        const width = Math.round(ratio * height);
+
+        const frontElement = (<div className="svg-img" style={getStyleDict(style, height, width, cardPath)}></div>);
+        const backElement = (<div className="svg-img" style={getStyleDict(style, height, width, backCardPath)}></div>);
 
         return (
-            <Card height="200px" style={style} front={frontElement} back={backElement} cardID={cardStr}/>
+            <Card   style={style} 
+                    front={frontElement} 
+                    back={backElement} 
+                    cardID={cardStr}
+                    height={height}
+                    width={width}
+            />
         );
     };
 };

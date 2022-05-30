@@ -10,8 +10,8 @@ function App() {
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <CastleCardComponent suit={CastleCardSuit.Hearts} value={CastleCardValue.King} height="200px" />
-        <UnoCardComponent color={UnoCardColor.Blue} cardType={UnoCardType.Number} cardValue={UnoCardNumber.Zero} height="210px" />
+        <CastleCardComponent suit={CastleCardSuit.Hearts} value={CastleCardValue.King} height={200} />
+        <UnoCardComponent color={UnoCardColor.Blue} cardType={UnoCardType.Number} cardValue={UnoCardNumber.Zero} height={210} />
         <p>
           Edit <code>src/App.js</code> and save to reload.
         </p>
