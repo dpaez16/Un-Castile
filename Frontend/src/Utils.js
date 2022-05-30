@@ -18,4 +18,13 @@ function shuffleArray(array, rng) {
     }
 };
 
-module.exports = { RNG, shuffleArray };
+function getStyleDict(style, filePath) {
+    const url = process.env.PUBLIC_URL + filePath;
+    let backgroundImageStyle = {
+        "backgroundImage": `url(${url})`
+    };
+
+    return {...style, ...backgroundImageStyle};
+};
+
+module.exports = { RNG, shuffleArray, getStyleDict };
