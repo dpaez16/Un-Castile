@@ -19,9 +19,8 @@ function shuffleArray(array, rng) {
 };
 
 function getStyleDict(style, filePath) {
-    const url = process.env.PUBLIC_URL + filePath;
     let backgroundImageStyle = {
-        "backgroundImage": `url(${url})`
+        "backgroundImage": `url(${filePath})`
     };
 
     return {...style, ...backgroundImageStyle};
