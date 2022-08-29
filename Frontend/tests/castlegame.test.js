@@ -1,7 +1,9 @@
 const { CastleGame } = require('../src/Classes/CastleGame');
 
 test('Castle game init', () => {
-    const game = new CastleGame(4, 12345678590);
+    const numPlayers = 4;
+    const seed = 12345678590;
+    const game = new CastleGame(numPlayers, seed);
 
     expect(game.castlePrepDone).toEqual(false);
     expect(game.getPlayedCards().length).toEqual(0);
