@@ -7,10 +7,18 @@ class UnoCardType {
         this.numVal = numVal;
     }
 
+    /**
+     * Returns all possible `UnoCardType` values.
+     * @returns {array} Array of `UnoCardType` values
+     */
     static AllCases() {
         return Object.keys(UnoCardType).map((cardType) => UnoCardType[cardType]);
     }
 
+    /**
+     * Returns number of `UnoCardType` values.
+     * @returns {number} Number of `UnoCardType` values
+     */
     static Length() {
         return UnoCardType.AllCases().length;
     }
@@ -32,10 +40,18 @@ class UnoCardColor {
         this.numVal = numVal;
     }
 
+    /**
+     * Returns all possible `UnoCardColor` values.
+     * @returns {array} Array of `UnoCardColor` values
+     */
     static AllCases() {
         return Object.keys(UnoCardColor).map((color) => UnoCardColor[color]);
     }
 
+    /**
+     * Returns number of `UnoCardColor` values.
+     * @returns {number} Number of `UnoCardColor` values
+     */
     static Length() {
         return UnoCardColor.AllCases().length;
     }
@@ -62,10 +78,18 @@ class UnoCardNumber {
         this.numVal = numVal;
     }
 
+    /**
+     * Returns all possible `UnoCardNumber` values.
+     * @returns {array} Array of `UnoCardNumber` values
+     */
     static AllCases() {
         return Object.keys(UnoCardNumber).map((number) => UnoCardNumber[number]);
     }
 
+    /**
+     * Returns number of `UnoCardNumber` values.
+     * @returns {number} Number of `UnoCardNumber` values
+     */
     static Length() {
         return UnoCardNumber.AllCases().length;
     }
@@ -87,10 +111,18 @@ class UnoCardAction {
         this.numVal = numVal;
     }
 
+    /**
+     * Returns all possible `UnoCardAction` values.
+     * @returns {array} Array of `UnoCardAction` values
+     */
     static AllCases() {
         return Object.keys(UnoCardAction).map((action) => UnoCardAction[action]);
     }
 
+    /**
+     * Returns number of `UnoCardAction` values.
+     * @returns {number} Number of `UnoCardAction` values
+     */
     static Length() {
         return UnoCardAction.AllCases().length;
     }
@@ -108,6 +140,9 @@ class UnoCard {
         this.faceUp = false;
     }
 
+    /**
+     * Flips card over.
+     */
     flipCard() {
         this.faceUp = !this.faceUp;
     }
@@ -127,11 +162,13 @@ class UnoCard {
      * @returns {boolean} True if the current card is "less than" the other card
      */
     lt(rhs) {
-        if (this.type.numVal < rhs.type.numVal) return true;
-        if (this.type.numVal > rhs.type.numVal) return false;
+        if (this.type.numVal === rhs.type.numVal) {
+            if (this.color.numVal == rhs.color.numVal) return this.value.numVal < rhs.value.numVal;
+            
+            return this.color.numVal < rhs.color.numVal;
+        }
 
-        if (this.color.numVal == rhs.color.numVal) return this.value.numVal < rhs.value.numVal;
-        return this.color.numVal < rhs.color.numVal;
+        return this.type.numVal < rhs.type.numVal;
     }
 
     /**
@@ -151,6 +188,12 @@ class UnoCard {
         return this.lt(rhs) ? -1 : 1;
     }
 
+    /**
+     * Checks to see if UnoCard is constructed properly according to the offical Uno packaging.
+     * Source: https://www.letsplayuno.com/news/guide/20181213/30092_732567.html
+     * 
+     * @returns {boolean} True if card is properly constructed
+     */
     isProper() {
         if (this.type.numVal == UnoCardType.Number.numVal) {
             return this.color.numVal !== UnoCardColor.Black.numVal;

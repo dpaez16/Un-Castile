@@ -9,10 +9,18 @@ class CastleCardSuit {
         this.numVal = numVal;
     }
 
+    /**
+     * Returns all possible `CastleCardSuit` values.
+     * @returns {array} Array of `CastleCardSuit` values
+     */
     static AllCases() {
         return Object.keys(CastleCardSuit).map((suit) => CastleCardSuit[suit]);
     }
 
+    /**
+     * Returns number of `CastleCardSuit` values.
+     * @returns {number} Number of `CastleCardSuit` values
+     */
     static Length() {
         return CastleCardSuit.AllCases().length;
     }
@@ -42,10 +50,18 @@ class CastleCardValue {
         this.numVal = numVal;
     }
 
+    /**
+     * Returns all possible `CastleCardValue` values.
+     * @returns {array} Array of `CastleCardValue` values
+     */
     static AllCases() {
         return Object.keys(CastleCardValue).map((cardValue) => CastleCardValue[cardValue]);
     }
     
+    /**
+     * Returns number of `CastleCardValue` values.
+     * @returns {number} Number of `CastleCardValue` values
+     */
     static Length() {
         return CastleCardValue.AllCases().length;
     }
@@ -62,6 +78,9 @@ class CastleCard {
         this.faceUp = false;
     }
 
+    /**
+     * Flips card over.
+     */
     flipCard() {
         this.faceUp = !this.faceUp;
     }
@@ -81,10 +100,9 @@ class CastleCard {
      * @returns {boolean} True if the current card is "less than" the other card
      */
     lt(rhs) {
-        if (this.suit.numVal < rhs.suit.numVal) return true;
-        if (this.suit.numVal > rhs.suit.numVal) return false;
+        if (this.suit.numVal === rhs.suit.numVal) return this.value.numVal < rhs.value.numVal;
 
-        return this.value.numVal < rhs.value.numVal;
+        return this.suit.numVal < rhs.suit.numVal;
     }
 
     /**
