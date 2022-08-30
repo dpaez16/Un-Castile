@@ -6,6 +6,18 @@ class CastlePlayer {
         this.castleUp = [];
         this.castleHand = castleUp.concat(castleHand);
         this.touchedCastle = false;
+
+        for (let card of this.castleDown) {
+            if (card.faceUp) {
+                card.flipCard();
+            }
+        }
+
+        for (let card of this.castleHand) {
+            if (!card.faceUp) {
+                card.flipCard();
+            }
+        }
     }
 
     /**
