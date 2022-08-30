@@ -21,7 +21,7 @@ class CastleGame {
         for (let i = 0; i < numPlayers; i++) {
             const castleDown = this.deck.splice(this.deck.length - CastleGame.CASTLE_DOWN_SIZE);
             const castleUp = this.deck.splice(this.deck.length - CastleGame.CASTLE_UP_SIZE);
-            const castleHand = this.deck.splice(this.deck.length - CastleGame.CASTLE_HAND_SIZE); // * 2 to allow for players to choose cards
+            const castleHand = this.deck.splice(this.deck.length - CastleGame.CASTLE_HAND_SIZE);
 
             const player = new CastlePlayer(castleDown, castleUp, castleHand);
             this.players.push(player);
