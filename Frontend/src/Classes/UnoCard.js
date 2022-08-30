@@ -163,7 +163,7 @@ class UnoCard {
      */
     lt(rhs) {
         if (this.type.numVal === rhs.type.numVal) {
-            if (this.color.numVal == rhs.color.numVal) return this.value.numVal < rhs.value.numVal;
+            if (this.color.numVal === rhs.color.numVal) return this.value.numVal < rhs.value.numVal;
             
             return this.color.numVal < rhs.color.numVal;
         }
@@ -195,7 +195,7 @@ class UnoCard {
      * @returns {boolean} True if card is properly constructed
      */
     isProper() {
-        if (this.type.numVal == UnoCardType.Number.numVal) {
+        if (this.type.numVal === UnoCardType.Number.numVal) {
             return this.color.numVal !== UnoCardColor.Black.numVal;
         }
 
