@@ -8,15 +8,11 @@ class CastlePlayer {
         this.touchedCastle = false;
 
         for (let card of this.castleDown) {
-            if (card.faceUp) {
-                card.flipCard();
-            }
+            card.faceUp = false;
         }
 
         for (let card of this.castleHand) {
-            if (!card.faceUp) {
-                card.flipCard();
-            }
+            card.faceUp = true;
         }
     }
 
