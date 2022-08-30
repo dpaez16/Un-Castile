@@ -13,13 +13,9 @@ class UnoGame {
 
         this.players = [];
         for (let i = 0; i < numPlayers; i++) {
-            const hand = this.deck.splice(this.deck.length - UnoGame.HAND_SIZE)
-                .map((card) => {
-                    card.flipCard(); // player's hand is face up
-                    return card;
-                });
-
-            this.players.push(new UnoPlayer(hand));
+            const hand = this.deck.splice(this.deck.length - UnoGame.HAND_SIZE);
+            const player = new UnoPlayer(hand);
+            this.players.push(player);
         }
 
         // Finds a number card for start of game
