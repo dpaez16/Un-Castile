@@ -6,6 +6,10 @@ import { UnoCardComponent } from '../UnoCard/UnoCardComponent';
 import "./Game.css";
 
 export class Game extends Component {
+    constructor(props) {
+        super(props);
+    }
+
     render() {
         return (
             <div className="un-castile-game">
