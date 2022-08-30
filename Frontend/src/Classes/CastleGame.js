@@ -231,9 +231,7 @@ class CastleGame {
      */
     isLegalCastleDownMove(playerNum, cardIdx) {
         const chosenCard = this.players[playerNum].getCastleDownCard(cardIdx);
-        if (chosenCard === undefined) return false;
-
-        return this.isLegalMoveHelper(chosenCard);
+        return chosenCard !== undefined && this.isLegalMoveHelper(chosenCard);
     }
 
     /**
@@ -244,9 +242,7 @@ class CastleGame {
      */
     isLegalCastleUpMove(playerNum, cardIdx) {
         const chosenCard = this.players[playerNum].getCastleUpCard(cardIdx);
-        if (chosenCard === undefined) return false;
-
-        return this.isLegalMoveHelper(chosenCard);
+        return chosenCard !== undefined && this.isLegalMoveHelper(chosenCard);
     }
 
     /**
