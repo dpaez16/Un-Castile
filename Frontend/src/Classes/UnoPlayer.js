@@ -2,6 +2,10 @@ class UnoPlayer {
     constructor(hand) {
         this.hand = hand;
         this.drawEvent = 0;
+
+        for (let card of this.hand) {
+            card.faceUp = true;
+        }
     }
 
     /**
