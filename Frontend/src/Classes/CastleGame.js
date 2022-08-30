@@ -14,7 +14,7 @@ class CastleGame {
         
         this.playedCards = [];
         this.discardPile = [];
-        this.valueDirection = 1; // 1 or -1
+        this.valueDirection = 1; // 1 := increasing value, -1 := decreasing value
         this.castlePrepDone = false;
 
         this.players = [];
