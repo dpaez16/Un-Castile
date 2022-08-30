@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import { CastleCardValue } from '../../Classes/CastleCard';
 import { Card }  from '../Card/Card';
 import { getStyleDict } from '../../Utils';
-import { motion } from 'framer-motion';
 
 export class CastleCardComponent extends Component {
     static SUITS = "HDCS";
