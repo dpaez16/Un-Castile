@@ -198,21 +198,16 @@ class CastleGame {
      * If the player has already properly emptied their hand, then they
      * do not pick up any cards.
      * @param {number} playerNum - Index of player
-     * @returns {number} Number of cards that the player drew
      */
     drawExtraCards(playerNum) {
         // if player emptied their hand before, no need to draw extra cards
         const player = this.players[playerNum];
-        if (player.emptiedHandBefore()) return 0;
+        if (player.emptiedHandBefore()) return;
 
-        var n = 0;
         while (this.deckSize() > 0 && player.castleHandSize() < CastleGame.CASTLE_HAND_SIZE) {
             const card = this.drawCard();
             player.addCard(card);
-            n += 1;
         }
-
-        return n;
     }
 
     /**
