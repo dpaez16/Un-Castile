@@ -29,7 +29,7 @@ class UnoGame {
         }
 
         this.playedCards.push(this.deck.pop());
-        this.playedCards[0].flipCard();
+        this.playedCards[0].faceUp = true;
         this.setColor(this.playedCards[0].color);
     }
 
@@ -43,7 +43,7 @@ class UnoGame {
 
         this.deck = this.playedCards.splice(0)
             .map((card) => {
-                card.flipCard(); // deck cards are always face down
+                card.faceUp = false;
                 return card;
             });
 
@@ -104,7 +104,7 @@ class UnoGame {
         }
 
         const card = this.deck.pop();
-        card.flipCard();
+        card.faceUp = true;
         this.players[playerNum].addCard(card);
     }
 
