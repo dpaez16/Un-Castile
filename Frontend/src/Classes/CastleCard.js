@@ -25,8 +25,8 @@ class CastleCardSuit {
         return CastleCardSuit.AllCases().length;
     }
 
-    toString() {
-        return `[${this.name}]`;
+    toJSON() {
+        return `${this.name}`;
     }
 };
 
@@ -66,7 +66,7 @@ class CastleCardValue {
         return CastleCardValue.AllCases().length;
     }
 
-    toString() {
+    toJSON() {
         return `${this.name}`;
     }
 };
@@ -122,8 +122,23 @@ class CastleCard {
         return this.lt(rhs) ? -1 : 1;
     }
 
-    toString() {
-        return `[${this.value.toString()} - ${this.suit.toString()}]`;
+    toJSON() {
+        return `${JSON.stringify(this.suit)},${JSON.stringify(this.value)},${this.faceUp}`;
+    }
+
+    /**
+     * Decodes a JSON string into a `CastleCard` object.
+     * @param {string} jsonStr - JSON string to be decoded into the `CastleCard` object
+     * @returns {CastleCard} The created `CastleCard` objected
+     */
+    static decode(jsonStr) {
+        const [suitStr, valueStr, faceUp] = jsonStr.split(',').map(e => JSON.parse(e));
+        const suit = CastleCardSuit[suitStr];
+        const value = CastleCardValue[valueStr];
+        
+        let card = new CastleCard(suit, value);
+        card.faceUp = faceUp;
+        return card;
     }
 };
 

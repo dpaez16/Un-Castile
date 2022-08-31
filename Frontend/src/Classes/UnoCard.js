@@ -23,7 +23,7 @@ class UnoCardType {
         return UnoCardType.AllCases().length;
     }
 
-    toString() {
+    toJSON() {
         return `${this.name}`;
     }
 };
@@ -56,7 +56,7 @@ class UnoCardColor {
         return UnoCardColor.AllCases().length;
     }
 
-    toString() {
+    toJSON() {
         return `${this.name}`;
     }
 };
@@ -94,7 +94,7 @@ class UnoCardNumber {
         return UnoCardNumber.AllCases().length;
     }
 
-    toString() {
+    toJSON() {
         return `${this.name}`;
     }
 };
@@ -127,7 +127,7 @@ class UnoCardAction {
         return UnoCardAction.AllCases().length;
     }
 
-    toString() {
+    toJSON() {
         return `${this.name}`;
     }
 };
@@ -206,8 +206,33 @@ class UnoCard {
         return this.value.numVal !== UnoCardAction.DrawFour.numVal && this.value.numVal !== UnoCardAction.ChangeColor.numVal;
     }
 
-    toString() {
-        return `[${this.color.toString()} - ${this.value.toString()}]`;
+    toJSON() {
+        return `${JSON.stringify(this.type)},${JSON.stringify(this.color)},${JSON.stringify(this.value)},${this.faceUp}`;
+    }
+
+    /**
+     * Decodes a JSON string into a `UnoCard` object.
+     * @param {string} jsonStr - JSON string to be decoded into the `UnoCard` object
+     * @returns {UnoCard} The created `UnoCard` objected
+     */
+     static decode(jsonStr) {
+        const [cardTypeStr, cardColorStr, cardValueStr, faceUp] = jsonStr.split(',').map(e => JSON.parse(e));
+        const cardType = UnoCardType[cardTypeStr];
+        const cardColor = UnoCardColor[cardColorStr];
+        
+        let cardValue;
+        switch (cardType) {
+            case UnoCardType.Number:
+                cardValue = UnoCardNumber[cardValueStr];
+                break;
+            case UnoCardType.Action:
+                cardValue = UnoCardAction[cardValueStr];
+                break;
+        }
+        
+        let card = new UnoCard(cardColor, cardType, cardValue);
+        card.faceUp = faceUp;
+        return card;
     }
 };
 

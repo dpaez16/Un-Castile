@@ -6,14 +6,14 @@ test('Deck creation works', () => {
     expect(deck.length).toEqual(CastleCardValue.Length() * CastleCardSuit.Length());
 
     for (let suit of CastleCardSuit.AllCases()) {
-        const cards = deck.filter((card) => card.suit.numVal === suit.numVal).map((card) => card.toString());
+        const cards = deck.filter((card) => card.suit.numVal === suit.numVal).map((card) => card.toJSON());
         const cardsSet = new Set(cards);
 
         expect(cardsSet.size).toEqual(CastleCardValue.Length());
     }
 
     for (let cardValue of CastleCardValue.AllCases()) {
-        const cards = deck.filter((card) => card.value.numVal === cardValue.numVal).map((card) => card.toString());
+        const cards = deck.filter((card) => card.value.numVal === cardValue.numVal).map((card) => card.toJSON());
         const cardsSet = new Set(cards);
 
         expect(cardsSet.size).toEqual(CastleCardSuit.Length());
@@ -44,4 +44,12 @@ test("comp() test", () => {
     expect(cardA.comp(cardA)).toEqual(0);
 
     expect(cardA.comp(cardC)).toEqual(-1);
+});
+
+test("CastleCard JSON serialization + deserialization", () => {
+    const deck = createCastleDeck();
+    const deckJSONStr = JSON.stringify(deck);
+    const deserializedDeck = JSON.parse(deckJSONStr).map(e => CastleCard.decode(e));
+
+    expect(deserializedDeck).toEqual(deck);
 });

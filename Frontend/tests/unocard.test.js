@@ -71,3 +71,11 @@ test("flipCard() test", () => {
     unoCard.flipCard();
     expect(unoCard.faceUp).toEqual(true);
 });
+
+test("UnoCard JSON serialization + deserialization", () => {
+    const deck = createUnoDeck();
+    const deckJSONStr = JSON.stringify(deck);
+    const deserializedDeck = JSON.parse(deckJSONStr).map(e => UnoCard.decode(e));
+
+    expect(deserializedDeck).toEqual(deck);
+});
