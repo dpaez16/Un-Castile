@@ -60,11 +60,6 @@ class UnCastileGame {
         this.unoGame.removePlayer(playerNum);
         this.castleGame.removePlayer(playerNum);
         this.players.splice(playerNum, 1);
-
-        for (let idx = playerNum; idx < this.players.length; idx++) {
-            const newPlayerNum = this.players[idx].getPlayerNum() - 1;
-        }
-
         this.playerNum %= this.players.length;
     }
 
@@ -265,10 +260,9 @@ class UnCastileGame {
      * 
      * If the player has already properly emptied their hand, then they do not pick up any cards
      * @param {number} playerNum - Index of player
-     * @returns {number} Number of cards that the player drew
      */
     drawCastleCards(playerNum) {
-        return this.castleGame.drawExtraCards(playerNum);
+        this.castleGame.drawExtraCards(playerNum);
     }
 
     /**
