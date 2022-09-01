@@ -284,7 +284,7 @@ class CastleGame {
     blowUpPile() {
         const cards = this.playedCards.splice(0);
         for (let card of cards) {
-            this.discardPile.addCard(card);
+            this.discardPile.push(card);
         }
     }
 
