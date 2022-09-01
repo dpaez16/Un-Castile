@@ -123,19 +123,23 @@ class CastleCard {
     }
 
     toJSON() {
-        return `${JSON.stringify(this.suit)},${JSON.stringify(this.value)},${this.faceUp}`;
+        return {
+            "suit": this.suit,
+            "value": this.value,
+            "faceUp": this.faceUp
+        };
     }
 
     /**
-     * Decodes a JSON string into a `CastleCard` object.
-     * @param {string} jsonStr - JSON string to be decoded into the `CastleCard` object
+     * Decodes a JSON object into a `CastleCard` object.
+     * @param {object} jsonObj - JSON object to be decoded into the `CastleCard` object
      * @returns {CastleCard} The created `CastleCard` objected
      */
-    static decode(jsonStr) {
-        const [suitStr, valueStr, faceUp] = jsonStr.split(',').map(e => JSON.parse(e));
-        const suit = CastleCardSuit[suitStr];
-        const value = CastleCardValue[valueStr];
-        
+    static decode(jsonObj) {
+        let { suit, value, faceUp } = jsonObj;
+        suit = CastleCardSuit[suit];
+        value = CastleCardValue[value];
+
         let card = new CastleCard(suit, value);
         card.faceUp = faceUp;
         return card;

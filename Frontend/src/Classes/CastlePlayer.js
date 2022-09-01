@@ -145,6 +145,35 @@ class CastlePlayer {
 
         return numCards > 0;
     }
+
+    toJSON() {
+        return {
+            "castleDown": this.getCastleDownCards(),
+            "castleUp": this.getCastleUpCards(),
+            "castleHand": this.getCastleHandCards(),
+            "touchedCastle": this.emptiedHandBefore()
+        };
+    }
+
+    /**
+     * Decodes a JSON object into a `CastlePlayer` object.
+     * @param {object} jsonObj - JSON object to be decoded into the `CastlePlayer` object
+     * @returns {CastlePlayer} The created `CastlePlayer` objected
+     */
+    static decode(jsonObj) {
+        let { castleDown, castleUp, castleHand, touchedCastle } = jsonObj;
+        castleDown = castleDown.map(e => CastleCard.decode(e));
+        castleUp = castleUp.map(e => CastleCard.decode(e));
+        castleHand = castleHand.map(e => CastleCard.decode(e));
+
+        let player = new CastlePlayer([], [], []);
+        player.castleDown = castleDown;
+        player.castleUp = castleUp;
+        player.castleHand = castleHand;
+        player.touchedCastle;
+
+        return player;
+    }
 };
 
 module.exports = { CastlePlayer };

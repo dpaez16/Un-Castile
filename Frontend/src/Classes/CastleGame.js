@@ -176,6 +176,14 @@ class CastleGame {
     }
 
     /**
+     * Gets the draw pile ("deck").
+     * @returns {Array<CastleCard>} The draw pile
+     */
+     getDeck() {
+        return this.deck;
+    }
+
+    /**
      * Gets the played cards pile.
      * @returns {Array<CastleCard>} The played cards
      */
@@ -303,6 +311,41 @@ class CastleGame {
      */
     getPlayer(playerNum) {
         return this.players[playerNum];
+    }
+
+    toJSON() {
+        return {
+            "deck": this.getDeck(),
+            "discardPile": this.getDiscardPile(),
+            "playedCards": this.getPlayedCards(),
+            "valueDirection": this.valueDirection,
+            "castlePrepDone": this.castlePrepDone,
+            "players": this.players,
+            "seed": this.seed,
+        };
+    }
+
+    /**
+     * Decodes a JSON object into a `CastleGame` object.
+     * @param {object} jsonObj - JSON object to be decoded into the `CastleGame` object
+     * @returns {CastleGame} The created `CastleGame` objected
+     */
+    static decode(jsonObj) {
+        let { deck, discardPile, playedCards, valueDirection, castlePrepDone, players, seed } = jsonObj;
+        deck = deck.map(e => CastleCard.decode(e));
+        discardPile = discardPile.map(e => CastleCard.decode(e));
+        playedCards = playedCards.map(e => CastleCard.decode(e));
+        players = players.map(e => CastlePlayer.decode(e));
+
+        let game = new CastleGame(players.length, seed);
+        game.deck = deck;
+        game.discardPile = discardPile;
+        game.playedCards = playedCards;
+        game.valueDirection = valueDirection;
+        game.castlePrepDone = castlePrepDone;
+        game.players = players;
+
+        return game;
     }
 };
 

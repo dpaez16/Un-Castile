@@ -207,7 +207,12 @@ class UnoCard {
     }
 
     toJSON() {
-        return `${JSON.stringify(this.type)},${JSON.stringify(this.color)},${JSON.stringify(this.value)},${this.faceUp}`;
+        return JSON.stringify({
+            "type": this.type,
+            "color": this.color,
+            "value": this.value,
+            "faceUp": this.faceUp
+        });
     }
 
     /**
@@ -216,17 +221,19 @@ class UnoCard {
      * @returns {UnoCard} The created `UnoCard` objected
      */
      static decode(jsonStr) {
-        const [cardTypeStr, cardColorStr, cardValueStr, faceUp] = jsonStr.split(',').map(e => JSON.parse(e));
-        const cardType = UnoCardType[cardTypeStr];
-        const cardColor = UnoCardColor[cardColorStr];
+        const jsonObj = JSON.parse(jsonStr);
+        
+        let { type, color, value, faceUp } = jsonObj;
+        const cardType = UnoCardType[type];
+        const cardColor = UnoCardColor[color];
         
         let cardValue;
         switch (cardType) {
             case UnoCardType.Number:
-                cardValue = UnoCardNumber[cardValueStr];
+                cardValue = UnoCardNumber[value];
                 break;
             case UnoCardType.Action:
-                cardValue = UnoCardAction[cardValueStr];
+                cardValue = UnoCardAction[value];
                 break;
         }
         
