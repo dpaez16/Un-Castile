@@ -21,7 +21,7 @@ test('Castle game init', () => {
         expect(player.getCastleDownCards().length).toEqual(CastleGame.CASTLE_DOWN_SIZE);
         expect(player.getCastleUpCards().length).toEqual(0);
         expect(player.castleHandSize()).toEqual(CastleGame.CASTLE_UP_SIZE + CastleGame.CASTLE_HAND_SIZE);
-        expect(player.hasCards()).toEqual(true);
+        expect(game.hasCards(i)).toEqual(true);
     }
 });
 
@@ -36,7 +36,7 @@ test("CastleGame assigning cards", () => {
         const originalHand = player.getCastleHandCards();
         const assignedCards = idxs.map(idx => originalHand[idx]);
 
-        player.assignCastleUpCards(idxs);
+        game.assignCastleUpCards(i, idxs);
         expect(player.getCastleUpCards().length).toEqual(CastleGame.CASTLE_UP_SIZE);
         expect(player.castleHandSize()).toEqual(CastleGame.CASTLE_HAND_SIZE);
         expect(player.getCastleUpCards()).toEqual(assignedCards);
@@ -207,6 +207,45 @@ test("CastleGame blowUpPile", () => {
     
     expect(game.playedCards.length).toEqual(0);
     expect(game.discardPile.length).toEqual(1);
+});
+
+test("CastleGame drawExtraCards", () => {
+    const numPlayers = 4;
+    const seed = 12345678590;
+    const game = new CastleGame(numPlayers, seed);
+    const idxs = [0, 2, 4];
+
+    for (let i = 0; i < numPlayers; i++) {
+        const player = game.getPlayer(i);
+        player.assignCastleUpCards(idxs);
+    }
+
+    game.placeCardCastleHand(0, 0);
+    game.placeCardCastleHand(0, 1);
+
+    expect(game.players[0].getCastleHandCards().length).toEqual(CastleGame.CASTLE_HAND_SIZE - 2);
+    
+    game.drawExtraCards(0);
+
+    expect(game.players[0].getCastleHandCards().length).toEqual(CastleGame.CASTLE_HAND_SIZE);
+});
+
+test("CastleGame backward value direction", () => {
+    const numPlayers = 4;
+    const seed = 12345678590;
+    const game = new CastleGame(numPlayers, seed);
+    const idxs = [0, 2, 4];
+
+    for (let i = 0; i < numPlayers; i++) {
+        const player = game.getPlayer(i);
+        player.assignCastleUpCards(idxs);
+    }
+
+    game.setValueDirection(-1);
+
+    expect(game.isLegalCastleHandMove(0, 0)).toEqual(true);
+    game.placeCardCastleHand(0, 0);
+    expect(game.isLegalCastleHandMove(0, 0)).toEqual(true);
 });
 
 test("CastleGame serialization + deserialization", () => {
