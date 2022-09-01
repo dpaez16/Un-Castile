@@ -119,6 +119,7 @@ class CastleGame {
             this.pickUpPile(playerNum);
             
             const card = player.getCastleDownCard(cardIdx);
+            card.faceUp = true;
             player.addCard(card);
             player.removeCastleDownCard(cardIdx);
             return false;
@@ -272,6 +273,7 @@ class CastleGame {
         const cards = this.playedCards.splice(0);
         const player = this.players[playerNum];
         for (let card of cards) {
+            card.faceUp = true;
             player.addCard(card);
         }
     }

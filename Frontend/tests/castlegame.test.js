@@ -129,6 +129,86 @@ test("CastleGame empty hand", () => {
     expect(game.players[0].emptiedHandBefore()).toEqual(true);
 });
 
+test("CastleGame placeCardCastleUp", () => {
+    const numPlayers = 4;
+    const seed = 12345678590;
+    const game = new CastleGame(numPlayers, seed);
+    const idxs = [0, 2, 4];
+
+    for (let i = 0; i < numPlayers; i++) {
+        const player = game.getPlayer(i);
+        player.assignCastleUpCards(idxs);
+    }
+
+    game.deck = [];
+
+    expect(game.isLegalCastleUpMove(0, 0)).toEqual(true);
+    let card = game.players[0].getCastleUpCard(0);
+    game.placeCardCastleUp(0, 0);
+
+    expect(game.playedCards[0]).toEqual(card);
+    expect(game.players[0].getCastleUpCard(0)).toEqual(undefined);
+});
+
+test("CastleGame placeCastleCardDown", () => {
+    const numPlayers = 4;
+    const seed = 12345678590;
+    const game = new CastleGame(numPlayers, seed);
+    const idxs = [0, 2, 4];
+
+    for (let i = 0; i < numPlayers; i++) {
+        const player = game.getPlayer(i);
+        player.assignCastleUpCards(idxs);
+    }
+
+    game.deck = [];
+
+    expect(game.isLegalCastleDownMove(0, 0)).toEqual(true);
+    let card = game.players[0].getCastleDownCard(0);
+    game.placeCardCastleDown(0, 0);
+
+    expect(game.playedCards[0]).toEqual(card);
+    expect(game.players[0].getCastleDownCard(0)).toEqual(undefined);
+
+    expect(game.isLegalCastleDownMove(0, 2)).toEqual(true);
+    
+    card = game.players[0].getCastleDownCard(2);
+    game.placeCardCastleDown(0, 2);
+
+    expect(game.playedCards[1]).toEqual(card);
+    expect(game.players[0].getCastleDownCard(2)).toEqual(undefined);
+
+    expect(game.isLegalCastleDownMove(0, 1)).toEqual(false);
+    card = game.players[0].getCastleDownCard(1);
+    const expectedHand = [card].concat(game.playedCards).concat(game.players[0].getCastleHandCards()).sort((a, b) => a.comp(b));
+    game.placeCardCastleDown(0, 1);
+
+    expect(game.playedCards.length).toEqual(0);
+    expect(game.players[0].getCastleDownCard(1)).toEqual(undefined);
+    
+    const actualHand = game.players[0].getCastleHandCards().sort((a, b) => a.comp(b));
+    expect(game.players[0].getCastleHandCards()).toEqual(expectedHand);
+    expect(game.players[0].getCastleHandCards().every(e => e.faceUp)).toEqual(true);
+});
+
+test("CastleGame blowUpPile", () => {
+    const numPlayers = 4;
+    const seed = 12345678590;
+    const game = new CastleGame(numPlayers, seed);
+    const idxs = [0, 2, 4];
+
+    for (let i = 0; i < numPlayers; i++) {
+        const player = game.getPlayer(i);
+        player.assignCastleUpCards(idxs);
+    }
+
+    game.placeCardCastleHand(0, 0);
+    game.blowUpPile();
+    
+    expect(game.playedCards.length).toEqual(0);
+    expect(game.discardPile.length).toEqual(1);
+});
+
 test("CastleGame serialization + deserialization", () => {
     const numPlayers = 4;
     const seed = 12345678590;
