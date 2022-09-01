@@ -1,3 +1,5 @@
+const { UnoCard } = require('./UnoCard');
+
 class UnoPlayer {
     constructor(hand) {
         this.hand = hand;
@@ -86,6 +88,29 @@ class UnoPlayer {
      */
     clearDrawEvent() {
         this.setDrawEvent(0);
+    }
+
+    toJSON() {
+        return {
+            "hand": this.getCards(),
+            "drawEvent": this.getDrawEvent()
+        };
+    }
+
+    /**
+     * Decodes a JSON object into a `UnoPlayer` object.
+     * @param {object} jsonObj - JSON object to be decoded into the `UnoPlayer` object
+     * @returns {UnoPlayer} The created `UnoPlayer` objected
+     */
+    static decode(jsonObj) {
+        let { hand, drawEvent } = jsonObj;
+        hand = hand.map(e => UnoCard.decode(e));
+
+        let card = new UnoPlayer([]);
+        card.hand = hand;
+        card.drawEvent = drawEvent;
+
+        return card;
     }
 };
 

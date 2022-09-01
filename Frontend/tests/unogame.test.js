@@ -83,3 +83,18 @@ test("Uno draw events test", () => {
     expect(unoGame.players[0].hasDrawEvent()).toEqual(false);
     expect(unoGame.players[0].getDrawEvent()).toEqual(0);
 });
+
+test("UnoGame serialization + deserialization", () => {
+    const numPlayers = 4;
+    const seed = 12345678590;
+    const game = new UnoGame(numPlayers, seed);
+    
+    const gameJSONStr = JSON.stringify(game);
+    const deserializedGame = UnoGame.decode(JSON.parse(gameJSONStr));
+
+    expect(deserializedGame.getDeck()).toEqual(game.getDeck());
+    expect(deserializedGame.getPlayedCards()).toEqual(game.getPlayedCards());
+    expect(deserializedGame.players).toEqual(game.players);
+    expect(deserializedGame.getColor()).toEqual(game.getColor());
+    expect(deserializedGame.seed).toEqual(game.seed);
+});

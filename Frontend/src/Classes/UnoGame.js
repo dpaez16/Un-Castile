@@ -30,7 +30,7 @@ class UnoGame {
 
         this.playedCards.push(this.deck.pop());
         this.playedCards[0].faceUp = true;
-        this.setColor(this.playedCards[0].color);
+        this.color = this.playedCards[0].color;
     }
 
     /**
@@ -49,6 +49,15 @@ class UnoGame {
 
         shuffleArray(this.deck, this.rng);
         this.playedCards.push(topCard);
+    }
+
+    /**
+     * Gets a player.
+     * @param {number} playerNum - Index of player
+     * @returns {UnoPlayer} Selected player
+     */
+     getPlayer(playerNum) {
+        return this.players[playerNum];
     }
 
     /**
@@ -199,6 +208,37 @@ class UnoGame {
      */
     clearDrawEvent(playerNum) {
         this.players[playerNum].clearDrawEvent();
+    }
+
+    toJSON() {
+        return {
+            "deck": this.getDeck(),
+            "playedCards": this.getPlayedCards(),
+            "players": this.players,
+            "color": this.getColor(),
+            "seed": this.seed
+        };
+    }
+
+    /**
+     * Decodes a JSON object into a `UnoGame` object.
+     * @param {object} jsonObj - JSON object to be decoded into the `UnoGame` object
+     * @returns {UnoGame} The created `UnoGame` objected
+     */
+    static decode(jsonObj) {
+        let { deck, playedCards, players, color, seed } = jsonObj;
+        deck = deck.map(e => UnoCard.decode(e));
+        playedCards = playedCards.map(e => UnoCard.decode(e));
+        players = players.map(e => UnoPlayer.decode(e));
+        color = UnoCardColor[color];
+
+        let game = new UnoGame(players.length, seed);
+        game.deck = deck;
+        game.playedCards = playedCards;
+        game.players = players;
+        game.color = color;
+
+        return game;
     }
 };
 
