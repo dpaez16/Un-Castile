@@ -96,6 +96,39 @@ test("CastleGame isWildCard", () => {
     expect(game.isWildCard(card)).toEqual(true);
 });
 
+test("CastleGame empty hand", () => {
+    const numPlayers = 2;
+    const seed = 12345678590;
+    const game = new CastleGame(numPlayers, seed);
+    const idxs = [0, 2, 4];
+
+    for (let i = 0; i < numPlayers; i++) {
+        const player = game.getPlayer(i);
+        const originalHand = player.getCastleHandCards();
+        const assignedCards = idxs.map(idx => originalHand[idx]);
+
+        player.assignCastleUpCards(idxs);
+    }
+
+    for (let i = 0; i < CastleGame.CASTLE_HAND_SIZE - 1; i++) {
+        game.playedCards = [];
+        expect(game.isLegalCastleHandMove(0, 0)).toEqual(true);
+
+        let card = game.players[0].getCastleHandCard(0);
+        game.placeCardCastleHand(0, 0);
+    
+        expect(game.getPlayedCards().length).toEqual(1);
+        expect(game.getPlayedCards()[0]).toEqual(card);
+        expect(game.players[0].getCastleHandCards().length).toEqual(CastleGame.CASTLE_HAND_SIZE - i - 1);
+    }
+
+    game.playedCards = [];
+    game.deck = [];
+    game.placeCardCastleHand(0, 0);
+
+    expect(game.players[0].emptiedHandBefore()).toEqual(true);
+});
+
 test("CastleGame serialization + deserialization", () => {
     const numPlayers = 4;
     const seed = 12345678590;

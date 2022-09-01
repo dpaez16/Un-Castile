@@ -153,7 +153,7 @@ class CastleGame {
         player.removeCastleHandCard(cardIdx);
 
         if (!player.emptiedHandBefore()) {
-            if (this.deckLength() === 0 && player.castleHandSize() === 0) {
+            if (this.deck.length === 0 && player.castleHandSize() === 0) {
                 player.touchCastle();
             }
         }
@@ -224,7 +224,7 @@ class CastleGame {
      * @returns {boolean} True if the card can be played.
      */
     isLegalMoveHelper(chosenCard) {
-        if (this.isWildCard(chosenCard)) return true;
+        if (this.isWildCard(chosenCard) || this.playedCards.length === 0) return true;
 
         const topCard = this.playedCards[this.playedCards.length - 1];
         if (this.valueDirection > 0) return chosenCard.value.numVal >= topCard.value.numVal;
