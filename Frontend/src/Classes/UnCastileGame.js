@@ -337,6 +337,38 @@ class UnCastileGame {
     getPlayedCastleCards() {
         return this.castleGame.getPlayedCards();
     }
+
+    toJSON() {
+        return {
+            "seed": this.seed,
+            "unoGame": this.unoGame,
+            "castleGame": this.castleGame,
+            "playerNum": this.playerNum,
+            "players": this.players,
+            "playerDirection": this.playerDirection,
+        };
+    }
+
+    /**
+     * Decodes a JSON object into a `UnCastileGame` object.
+     * @param {object} jsonObj - JSON object to be decoded into the `UnCastileGame` object
+     * @returns {UnCastileGame} The created `UnCastileGame` objected
+     */
+    static decode(jsonObj) {
+        let { seed, unoGame, castleGame, playerNum, players, playerDirection } = jsonObj;
+        unoGame = UnoGame.decode(unoGame);
+        castleGame = CastleGame.decode(castleGame);
+        players = players.map(e => UnCastilePlayer.decode(e));
+
+        let game = new UnCastileGame(players.length, [], seed);
+        game.unoGame = unoGame;
+        game.castleGame = castleGame;
+        game.playerNum = playerNum;
+        game.players = players;
+        game.playerDirection = playerDirection;
+
+        return game;
+    }
 };
 
 module.exports = { UnCastileGame };

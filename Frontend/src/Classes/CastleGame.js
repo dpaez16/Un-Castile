@@ -321,7 +321,7 @@ class CastleGame {
             "valueDirection": this.valueDirection,
             "castlePrepDone": this.castlePrepDone,
             "players": this.players,
-            "seed": this.seed,
+            "seed": this.rng.seed
         };
     }
 

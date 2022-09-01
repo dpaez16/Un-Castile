@@ -19,6 +19,20 @@ class UnCastilePlayer {
     setValue(key, value) {
         this.metadata[key] = value;
     }
+
+    toJSON() {
+        return this.getMetadata();
+    }
+
+    /**
+     * Decodes a JSON object into a `UnoPlayer` object.
+     * @param {object} jsonObj - JSON object to be decoded into the `UnoPlayer` object
+     * @returns {UnoPlayer} The created `UnoPlayer` objected
+     */
+    static decode(jsonObj) {
+        const player = new UnCastilePlayer(jsonObj);
+        return player
+    }
 };
 
 module.exports = { UnCastilePlayer };

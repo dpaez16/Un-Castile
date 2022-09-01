@@ -216,7 +216,7 @@ class UnoGame {
             "playedCards": this.getPlayedCards(),
             "players": this.players,
             "color": this.getColor(),
-            "seed": this.seed
+            "seed": this.rng.seed
         };
     }
 
