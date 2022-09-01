@@ -153,10 +153,10 @@ class CastleGame {
         this.playedCards.push(card);
         player.removeCastleHandCard(cardIdx);
 
-        if (!player.emptiedHandBefore()) {
-            if (this.deck.length === 0 && player.castleHandSize() === 0) {
-                player.touchCastle();
-            }
+        if (player.emptiedHandBefore()) return;
+
+        if (this.deck.length === 0 && player.castleHandSize() === 0) {
+            player.touchCastle();
         }
     }
 
