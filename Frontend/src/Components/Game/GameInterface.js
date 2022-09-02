@@ -39,7 +39,7 @@ export class GameInterface extends Component {
         switch (this.state.currentGame) {
             case GameInterface.UNO:
                 newCard = UnoCard.decode(jsonObj);
-                idx = this.state.unoCards.findIndex((c) => c.equals(newCard));
+                idx = this.state.unoCards.findIndex((c) => c.id === newCard.id);
                 newCard.flipCard();
 
                 newCards = JSON.parse(JSON.stringify(this.state.unoCards)).map(e => UnoCard.decode(e));

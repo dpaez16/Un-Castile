@@ -133,11 +133,12 @@ class UnoCardAction {
 };
 
 class UnoCard {
-    constructor(cardColor, cardType, cardValue) {
+    constructor(cardColor, cardType, cardValue, id) {
         this.color = cardColor;
         this.type = cardType;
         this.value = cardValue;
         this.faceUp = false;
+        this.id = id;
     }
 
     /**
@@ -211,7 +212,8 @@ class UnoCard {
             "type": this.type,
             "color": this.color,
             "value": this.value,
-            "faceUp": this.faceUp
+            "faceUp": this.faceUp,
+            "id": this.id
         };
     }
 
@@ -221,7 +223,7 @@ class UnoCard {
      * @returns {UnoCard} The created `UnoCard` objected
      */
      static decode(jsonObj) {
-        let { type, color, value, faceUp } = jsonObj;
+        let { type, color, value, faceUp, id } = jsonObj;
         const cardType = UnoCardType[type];
         const cardColor = UnoCardColor[color];
         
@@ -235,7 +237,7 @@ class UnoCard {
                 break;
         }
         
-        let card = new UnoCard(cardColor, cardType, cardValue);
+        let card = new UnoCard(cardColor, cardType, cardValue, id);
         card.faceUp = faceUp;
         return card;
     }
@@ -247,26 +249,26 @@ function createUnoDeck() {
     for (let it = 0; it < 2; it++) {
         for (let cardColor of UnoCardColor.AllCases()) {
             for (let cardNumber of UnoCardNumber.AllCases()) {
-                const unoCard = new UnoCard(cardColor, UnoCardType.Number, cardNumber);
+                const unoCard = new UnoCard(cardColor, UnoCardType.Number, cardNumber, deck.length);
                 deck.push(unoCard);
             }
         }
 
         for (let cardColor of UnoCardColor.AllCases()) {
             for (let cardAction of UnoCardAction.AllCases()) {
-                const unoCard = new UnoCard(cardColor, UnoCardType.Action, cardAction);
+                const unoCard = new UnoCard(cardColor, UnoCardType.Action, cardAction, deck.length);
                 deck.push(unoCard);
             }
         }
 
-        deck.push(new UnoCard(UnoCardColor.Black, UnoCardType.Action, UnoCardAction.ChangeColor));
-        deck.push(new UnoCard(UnoCardColor.Black, UnoCardType.Action, UnoCardAction.DrawFour));
+        deck.push(new UnoCard(UnoCardColor.Black, UnoCardType.Action, UnoCardAction.ChangeColor, deck.length));
+        deck.push(new UnoCard(UnoCardColor.Black, UnoCardType.Action, UnoCardAction.DrawFour, deck.length));
     }
 
     deck = deck.filter(card => card.type.numVal !== UnoCardType.Number.numVal || card.value.numVal !== UnoCardNumber.Zero.numVal);
 
     for (let cardColor of UnoCardColor.AllCases()) {
-        deck.push(new UnoCard(cardColor, UnoCardType.Number, UnoCardNumber.Zero));
+        deck.push(new UnoCard(cardColor, UnoCardType.Number, UnoCardNumber.Zero, deck.length));
     }
 
     deck = deck.sort((lhs, rhs) => lhs.comp(rhs));
