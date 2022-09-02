@@ -1,0 +1,17 @@
+.card {
+    background-color: transparent;
+}
+
+.card-inner {
+    position: relative;
+}
+
+.svg-img {
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.card-front, .card-back {
+    position: absolute;
+}
+

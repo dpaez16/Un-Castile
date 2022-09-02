@@ -1,0 +1,7 @@
+.un-castile-game-interface {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    /*transform: rotate(0deg); might be handy */
+}
