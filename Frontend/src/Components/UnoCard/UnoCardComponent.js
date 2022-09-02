@@ -14,25 +14,28 @@ export class UnoCardComponent extends Component {
     }
 
     render() {
-        const {color, cardType, cardValue, faceUp, style = {}, height} = this.props;
+        const { card, height, onClick, style={} } = this.props;
+        const {color, cardType, cardValue, faceUp } = card.toJSON();
         
-        const cardStr = `${color.toJSON()} - ${cardValue.toJSON()}`;
+        const cardStr = JSON.stringify(card);
         const cardPath = this.getCardPath(color, cardType, cardValue, faceUp);
         const backCardPath = this.getCardPath(color, cardType, cardValue, faceUp);
 
         const ratio = 242 / 362; // imageWidth / imageHeight
         const width = Math.round(ratio * height);
 
-        const frontElement = (<div className="svg-img" style={getStyleDict(style, height, width, cardPath)}></div>);
-        const backElement = (<div className="svg-img" style={getStyleDict(style, height, width, backCardPath)}></div>);
+        const frontElement = (<div className="svg-img" id={cardStr} style={getStyleDict(style, height, width, cardPath)}></div>);
+        const backElement = (<div className="svg-img" id={cardStr} style={getStyleDict(style, height, width, backCardPath)}></div>);
 
         return (
-            <Card   style={style} 
-                    front={frontElement} 
-                    back={backElement} 
-                    cardID={cardStr}
-                    height={height}
-                    width={width}
+            <Card 
+                style={style}
+                front={frontElement}
+                back={backElement}
+                cardID={cardStr}
+                height={height}
+                width={width}
+                onClick={onClick}
             />
         );
     };

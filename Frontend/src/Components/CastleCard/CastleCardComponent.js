@@ -23,25 +23,28 @@ export class CastleCardComponent extends Component {
     }
 
     render() {
-        const {suit, value, height, style = {}, faceUp} = this.props;
+        const { card, height, onClick, style={} } = this.props;
+        const { suit, value, faceUp } = card.toJSON();
 
-        const cardStr = `${suit.toJSON()} - ${value.toJSON()}`;
+        const cardStr = JSON.stringify(card);
         const cardPath = this.getCardPath(suit, value, faceUp);
         const backCardPath = this.getCardPath(suit, value, faceUp);
 
         const ratio = 225 / 315; // imageWidth / imageHeight
         const width = Math.round(ratio * height);
 
-        const frontElement = (<div className="svg-img" style={getStyleDict(style, height, width, cardPath)}></div>);
-        const backElement = (<div className="svg-img" style={getStyleDict(style, height, width, backCardPath)}></div>);
+        const frontElement = (<div className="svg-img" id={cardStr} style={getStyleDict(style, height, width, cardPath)}></div>);
+        const backElement = (<div className="svg-img" id={cardStr} style={getStyleDict(style, height, width, backCardPath)}></div>);
 
         return (
-            <Card   style={style} 
-                    front={frontElement} 
-                    back={backElement} 
-                    cardID={cardStr}
-                    height={height}
-                    width={width}
+            <Card   
+                style={style}
+                front={frontElement}
+                back={backElement}
+                cardID={cardStr}
+                height={height}
+                width={width}
+                onClick={onClick}
             />
         );
     };

@@ -3,13 +3,12 @@ import "./Card.css";
 
 export class Card extends Component {
     render() {
-        const {style = {}, front, back, cardID, height, width} = this.props;
-        const divID = `card-container-${cardID}`;
+        const {style = {}, front, back, cardID, height, width, onClick} = this.props;
         style.height = `${height}px`;
         style.width = `${width}px`;
 
         return (
-            <div className="card" key={divID} style={style}>
+            <div className="card" id={cardID} style={style} onClick={onClick}>
                 <div className="card-inner" style={style}>
                     <div className="card-front" style={style}>
                         {front}

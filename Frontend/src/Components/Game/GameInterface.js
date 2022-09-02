@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import { createCastleDeck } from '../../Classes/CastleCard';
-import { createUnoDeck } from '../../Classes/UnoCard';
+import { CastleCard, createCastleDeck } from '../../Classes/CastleCard';
+import { UnoCard, createUnoDeck } from '../../Classes/UnoCard';
 import { CastleCardComponent } from '../CastleCard/CastleCardComponent';
 import { UnoCardComponent } from '../UnoCard/UnoCardComponent';
 import "./GameInterface.css";
@@ -30,6 +30,19 @@ export class GameInterface extends Component {
         });
     }
 
+    clickCard = (event) => {
+        const jsonObj = JSON.parse(event.target.id);
+
+        switch (this.state.currentGame) {
+            case GameInterface.UNO:
+                console.log(UnoCard.decode(jsonObj));
+                break;
+            case GameInterface.CASTLE:
+                console.log(CastleCard.decode(jsonObj));
+                break;
+        }
+    }
+
     render() {
         return (
             <div className="un-castile-game-interface">
@@ -45,7 +58,11 @@ export class GameInterface extends Component {
                     this.state.unoCards.map((e, idx) => {
                         return (
                             <React.Fragment key={idx}>
-                                <UnoCardComponent color={e.color} cardType={e.type} cardValue={e.value} faceUp={e.faceUp} height={210} />
+                                <UnoCardComponent 
+                                    card={e}
+                                    height={210} 
+                                    onClick={this.clickCard}
+                                />
                             </React.Fragment>
                         );
                     })
@@ -55,7 +72,11 @@ export class GameInterface extends Component {
                     this.state.castleCards.map((e, idx) => {
                         return (
                             <React.Fragment key={idx}>
-                                <CastleCardComponent suit={e.suit} value={e.value} faceUp={e.faceUp} height={210} />
+                                <CastleCardComponent 
+                                    card={e}
+                                    height={210}
+                                    onClick={this.clickCard}
+                                />
                             </React.Fragment>
                         );
                     })
