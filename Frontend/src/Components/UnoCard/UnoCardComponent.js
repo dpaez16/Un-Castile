@@ -15,11 +15,11 @@ export class UnoCardComponent extends Component {
 
     render() {
         const { card, height, onClick, style={} } = this.props;
-        const {color, cardType, cardValue, faceUp } = card.toJSON();
+        const { color, type, value, faceUp } = card.toJSON();
         
         const cardStr = JSON.stringify(card);
-        const cardPath = this.getCardPath(color, cardType, cardValue, faceUp);
-        const backCardPath = this.getCardPath(color, cardType, cardValue, faceUp);
+        const cardPath = this.getCardPath(color, type, value, faceUp);
+        const backCardPath = this.getCardPath(color, type, value, faceUp);
 
         const ratio = 242 / 362; // imageWidth / imageHeight
         const width = Math.round(ratio * height);

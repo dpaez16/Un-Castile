@@ -32,15 +32,31 @@ export class GameInterface extends Component {
 
     clickCard = (event) => {
         const jsonObj = JSON.parse(event.target.id);
+        let newCard = undefined;
+        let newCards = undefined;
+        let idx;
 
         switch (this.state.currentGame) {
             case GameInterface.UNO:
-                console.log(UnoCard.decode(jsonObj));
+                newCard = UnoCard.decode(jsonObj);
+                idx = this.state.unoCards.findIndex((c) => c.equals(newCard));
+                newCard.flipCard();
+
+                newCards = JSON.parse(JSON.stringify(this.state.unoCards)).map(e => UnoCard.decode(e));
+                newCards.splice(idx, 1, newCard);
+                this.setState({unoCards: newCards});
                 break;
             case GameInterface.CASTLE:
-                console.log(CastleCard.decode(jsonObj));
+                newCard = CastleCard.decode(jsonObj);
+                idx = this.state.castleCards.findIndex((c) => c.equals(newCard));
+                newCard.flipCard();
+
+                newCards = JSON.parse(JSON.stringify(this.state.castleCards)).map(e => CastleCard.decode(e));
+                newCards.splice(idx, 1, newCard);
+                this.setState({castleCards: newCards});
                 break;
         }
+
     }
 
     render() {
