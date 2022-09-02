@@ -9,7 +9,7 @@ export class Card extends Component {
         style.width = `${width}px`;
 
         return (
-            <div className="card" id={divID} style={style}>
+            <div className="card" key={divID} style={style}>
                 <div className="card-inner" style={style}>
                     <div className="card-front" style={style}>
                         {front}

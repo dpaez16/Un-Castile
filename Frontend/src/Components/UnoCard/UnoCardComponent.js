@@ -4,21 +4,21 @@ import { Card } from '../Card/Card';
 import { getStyleDict } from '../../Utils';
 
 export class UnoCardComponent extends Component {
-    getCardPath(color, cardType, cardValue, flipped) {
-        if (!flipped) {
+    getCardPath(color, cardType, cardValue, faceUp) {
+        if (!faceUp) {
             return `${process.env.PUBLIC_URL}/assets/images/UnoCard/Back.svg`;
         } else {
-            const cardValueStr = cardType.numVal === UnoCardType.Number.numVal ? cardValue.numVal : cardValue.toString();
-            return `${process.env.PUBLIC_URL}/assets/images/UnoCard/${color.toString()}/${cardType.toString()}/${cardValueStr}.svg`;
+            const cardValueStr = cardType.numVal === UnoCardType.Number.numVal ? cardValue.numVal : cardValue.toJSON();
+            return `${process.env.PUBLIC_URL}/assets/images/UnoCard/${color.toJSON()}/${cardType.toJSON()}/${cardValueStr}.svg`;
         }
     }
 
     render() {
-        const {color, cardType, cardValue, flipped=false, style = {}, height} = this.props;
+        const {color, cardType, cardValue, faceUp, style = {}, height} = this.props;
         
-        const cardStr = `${color.toString()} - ${cardValue.toString()}`;
-        const cardPath = this.getCardPath(color, cardType, cardValue, flipped);
-        const backCardPath = this.getCardPath(color, cardType, cardValue, flipped);
+        const cardStr = `${color.toJSON()} - ${cardValue.toJSON()}`;
+        const cardPath = this.getCardPath(color, cardType, cardValue, faceUp);
+        const backCardPath = this.getCardPath(color, cardType, cardValue, faceUp);
 
         const ratio = 242 / 362; // imageWidth / imageHeight
         const width = Math.round(ratio * height);

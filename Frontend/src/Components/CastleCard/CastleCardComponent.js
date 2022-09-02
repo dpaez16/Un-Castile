@@ -13,8 +13,8 @@ export class CastleCardComponent extends Component {
         return `${valueChar}${suitChar}`;
     };
 
-    getCardPath(suit, value, flipped) {
-        if (!flipped) {
+    getCardPath(suit, value, faceUp) {
+        if (!faceUp) {
             return `${process.env.PUBLIC_URL}/assets/images/CastleCard/Back.svg`;
         } else {
             const cardFileName = this.getCardFileName(suit, value);
@@ -23,11 +23,11 @@ export class CastleCardComponent extends Component {
     }
 
     render() {
-        const {suit, value, height, style = {}, flipped=false} = this.props;
+        const {suit, value, height, style = {}, faceUp} = this.props;
 
-        const cardStr = `${suit.toString()} - ${value.toString()}`;
-        const cardPath = this.getCardPath(suit, value, flipped);
-        const backCardPath = this.getCardPath(suit, value, flipped);
+        const cardStr = `${suit.toJSON()} - ${value.toJSON()}`;
+        const cardPath = this.getCardPath(suit, value, faceUp);
+        const backCardPath = this.getCardPath(suit, value, faceUp);
 
         const ratio = 225 / 315; // imageWidth / imageHeight
         const width = Math.round(ratio * height);
